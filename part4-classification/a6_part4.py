@@ -15,6 +15,8 @@ print(y)
 
 # Step 2: Standardize the data using StandardScaler, 
 scaler=StandardScaler().fit(x)
+print(scaler)
+x= scaler.transform
 
 # Step 3: Transform the data
 x=scaler.transform(x)
@@ -35,7 +37,7 @@ print("Accuracy:", model.score(x_test, y_test))
 # based on the xtest data
 
 print("*************")
-print("Testing Results:")
+print("Testing Results:") 
 print("")
 print(y_test)
 for index in range(len(x_test)):
