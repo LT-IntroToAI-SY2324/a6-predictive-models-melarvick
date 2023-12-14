@@ -5,30 +5,35 @@ from sklearn.cluster import KMeans
 
 #imports the data
 data = pd.read_csv("part5-unsupervised-learning/customer_data.csv")
-x = data[["Annual Income", "Spending Score"]]
+data = data[["Annual Income", "Spending Score"]]
 
-#standardize the data
+#standardizes the data
+x_std = StandardScaler().fit_transform(data)
 
-
-#the value of k has been defined for you
+#sets the value of k and creates kmeans model
 k = 5
+km = KMeans(n_clusters=k).fit(x_std)
 
-#apply the kmeans algorithm
+#returns centroid x, y values in a 2D array
+centroids = km.cluster_centers_
 
+#returns the cluster labels of each data point in the x_std data set
+labels = km.labels_
 
-#get the centroid and label values
-
-
-#sets the size of the graph
+#sets the size of the scatterplot
 plt.figure(figsize=(5,4))
 
-#use a for loop to plot the data points in each cluster
+#plots the data points for each cluster
+for i in range(k):
+    cluster = x_std[labels == i]
+    print(cluster)
+    plt.scatter(cluster[:,0], cluster[:,1])
 
+#plots the centriods
+plt.scatter(centroids[:, 0], centroids[:, 1], marker='X', s=100,
+            c='r', label='centroid')
 
-#plot the centroids
-
-            
-#shows the graph
+#labels the axes
 plt.xlabel("Annual Income")
 plt.ylabel("Spending Score")
 plt.show()
